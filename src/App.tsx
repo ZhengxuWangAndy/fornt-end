@@ -56,6 +56,9 @@ function App() {
       console.error(error);
     }
     setTable(rows);
+    if (rows.length === 0) {
+      alert('No this shipper id in DB');
+    }
 
   };
 
