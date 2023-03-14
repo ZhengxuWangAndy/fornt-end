@@ -51,7 +51,6 @@ function App() {
         icon: 'error',
         title: 'Oops...',
         text: 'Please fill in all input fields!',
-        footer: '<a href="">Why do I have this issue?</a>'
       })
       return;
     }
@@ -93,7 +92,6 @@ function App() {
           icon: 'error',
           title: 'Oops...',
           text: 'Post failed!',
-          footer: '<a href="">Why do I have this issue?</a>'
         })
       }
     
@@ -155,7 +153,6 @@ function App() {
         icon: 'error',
         title: 'Oops...',
         text: 'No this shipper id in DB!',
-        footer: '<a href="">Why do I have this issue?</a>'
       })
     }
 
