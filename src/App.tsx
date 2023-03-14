@@ -4,6 +4,8 @@ import { MenuItem, Select, Table, TableBody, TableCell, TableContainer, TableHea
 import axios from "axios";
 
 
+
+
 function App() {
   // You will need to use more of these!
   const [rowsPerPage, setRowsPerPage] = React.useState(10); // set how many rows per page
@@ -11,6 +13,83 @@ function App() {
   const [table, setTable] = useState<Array<any>>([]); // table state
 
   let rows : Array<any> = [];  // save grid table rows
+
+
+  const [warehouseIDValue, setWarehouseIDValue] = useState('');
+  const [shippingPOValue, setShippingPOValue] = useState('');
+  const [shipmentIDValue, setShipmentIDValue] = useState('');
+  const [boxesRcvdValue, setBoxesRcvdValue] = useState('');
+  const [shipperIDValue, setShipperIDValue] = useState('');
+
+
+
+  
+  const handleWarehouseIDChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setWarehouseIDValue(e.target.value);
+  };
+
+  const handleShippingPOChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setShippingPOValue(e.target.value);
+  };
+
+  const handleShipmentIDChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setShipmentIDValue(e.target.value);
+  };
+
+  const handleBoxesRcvdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setBoxesRcvdValue(e.target.value);
+  };
+
+  const handleShipperIDChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setShipperIDValue(e.target.value);
+  };
+
+  const handlePostButtonClick = () => {
+    // Validate that none of the input values are empty
+    if (!warehouseIDValue || !shippingPOValue || !shipmentIDValue || !boxesRcvdValue || !shipperIDValue) {
+      alert('Please fill in all input fields');
+      return;
+    }
+
+
+
+    // Call POST API with input values
+    const postApi = async () => {
+      const key = await import('./key.json');
+      // console.log(key.value);
+
+      const url = "https://warehousejs.azurewebsites.net/api/HttpTriggerPost?code=" + key.value;
+      const body = {
+        "WarehouseID": warehouseIDValue,
+        "ShippingPO": shippingPOValue,
+        "ShipmentID": shipmentIDValue,
+        "BoxesRcvd": boxesRcvdValue,
+        "ShipperID": shipperIDValue
+      };
+    
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(body)
+      });
+    
+      const data = await response.status;
+
+      if(data === 200){
+        alert("Post Successed")
+      }else{
+        alert("Post Failed")
+      }
+    
+      // console.log(data);
+    };
+
+    postApi();
+
+  };
+
 
   // handle data grid change page
   const handleChangePage = (
@@ -36,8 +115,9 @@ function App() {
   };
 
   const handleButtonClick = async () => {
+    const key = await import('./key.json');
     try {
-      const response = await axios(`https://warehousejs.azurewebsites.net/api/HttpTriggerGet?code=LKizu74xB22pCTSwToVvv207SozXfCsP7vQkBjGZLa4OAzFu8CahUg==&ShipperID=${inputValue}`);
+      const response = await axios(`https://warehousejs.azurewebsites.net/api/HttpTriggerGet?code=${key.value}&ShipperID=${inputValue}`);
       // setData(response.data);
       console.log(response.data);
       rows = response.data.map((item: { Date: any; WarehouseID: any; ShippingPO: any; ShipmentID: any; BoxesRcvd: any; ShipperID: any; }) => {
@@ -81,6 +161,38 @@ function App() {
               <button onClick={handleButtonClick}>Search</button>
             </div>
         </Grid>
+        <div>
+        <Typography variant="h4" gutterBottom>
+            Post
+          </Typography>
+      <label>
+        WarehouseID:
+        <input type="text" value={warehouseIDValue} onChange={handleWarehouseIDChange} />
+      </label>
+      <br />
+      <label>
+        ShippingPO:
+        <input type="text" value={shippingPOValue} onChange={handleShippingPOChange} />
+      </label>
+      <br />
+      <label>
+        ShipmentID:
+        <input type="text" value={shipmentIDValue} onChange={handleShipmentIDChange} />
+      </label>
+      <br />
+      <label>
+        BoxesRcvd:
+        <input type="text" value={boxesRcvdValue} onChange={handleBoxesRcvdChange} />
+      </label>
+      <br />
+      <label>
+        ShipperID:
+        <input type="text" value={shipperIDValue} onChange={handleShipperIDChange} />
+      </label>
+      <br />
+      <button onClick={handlePostButtonClick}>Post</button>
+    </div>
+        
         <Grid xs={12} md={8}>
           <Typography variant="h4" gutterBottom>
             Final Grades
