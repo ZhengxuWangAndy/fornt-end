@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Unstable_Grid2";
 import { MenuItem, Select, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Typography } from "@mui/material";
 import axios from "axios";
-
+import Swal from 'sweetalert2'
 
 
 
@@ -47,7 +47,12 @@ function App() {
   const handlePostButtonClick = () => {
     // Validate that none of the input values are empty
     if (!warehouseIDValue || !shippingPOValue || !shipmentIDValue || !boxesRcvdValue || !shipperIDValue) {
-      alert('Please fill in all input fields');
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Please fill in all input fields!',
+        footer: '<a href="">Why do I have this issue?</a>'
+      })
       return;
     }
 
@@ -78,9 +83,18 @@ function App() {
       const data = await response.status;
 
       if(data === 200){
-        alert("Post Successed")
+        Swal.fire(
+          'Good job!',
+          'Post Successed!',
+          'success'
+        )
       }else{
-        alert("Post Failed")
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Post failed!',
+          footer: '<a href="">Why do I have this issue?</a>'
+        })
       }
     
       // console.log(data);
@@ -137,7 +151,12 @@ function App() {
     }
     setTable(rows);
     if (rows.length === 0) {
-      alert('No this shipper id in DB');
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'No this shipper id in DB!',
+        footer: '<a href="">Why do I have this issue?</a>'
+      })
     }
 
   };

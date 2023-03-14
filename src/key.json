@@ -1,1 +1,8 @@
-{ "id": "/subscriptions/902eea28-a154-4fcd-8fd7-d7105c4edca2/resourceGroups/519/providers/Microsoft.Web/sites/WarehouseJS/host/default/functionKeys/default", "location": "East US", "name": "default", "resourceGroup": "519", "type": "Microsoft.Web/sites/host/functionKeys", "value": "yTBK6SwQbKBA0nQIme75oj152Y5mDanHSQSjfPLrmnGwAzFuQ2lgRw==" }
+{
+    "id": "/subscriptions/902eea28-a154-4fcd-8fd7-d7105c4edca2/resourceGroups/519/providers/Microsoft.Web/sites/WarehouseJS/host/default/functionKeys/default",
+    "location": "East US",
+    "name": "default",
+    "resourceGroup": "519",
+    "type": "Microsoft.Web/sites/host/functionKeys",
+    "value": "yTBK6SwQbKBA0nQIme75oj152Y5mDanHSQSjfPLrmnGwAzFuQ2lgRw=="
+}
